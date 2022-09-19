@@ -1,19 +1,5 @@
 <?php
 
-// $modelo = $_POST["modelo"];
-// $marca = $_POST["marca"];
-// $ano = $_POST["ano"];
-// $dataLocacao = $_POST["dataLocacao"];
-// $dataDevolucao = $_POST["dataDevolucao"];
-// $imagem = $_FILES["imagem"];
-// echo "<pre>";
-// print_r($modelo);
-// print_r($marca);
-// print_r($ano);
-// print_r($dataLocacao);
-// print_r($dataDevolucao);
-// print_r($imagem);
-// echo "</pre>";
 
 class Veiculo{
     private $modelo;
@@ -22,79 +8,125 @@ class Veiculo{
     private $dataLocacao;
     private $dataDevolucao;
     private $imagem;
+    private $mensagem = [];
 
-    public function validaCampos($campo,$arquivo){
+    public function inicio($campo,$arquivo){
+        if($this->validaCampos($campo)){
+            if($this->validaData($campo)){
+                if($this->recebeArquivo($arquivo)){
+                    $this->mensagem = [
+                        "status" => true,
+                        "msg" => "Dados cadastrados com sucesso!"
+                    ];
+                }
+                else{
+                    $this->mensagem = [
+                        "status" => false,
+                        "msg" => "Formato do arquivo inválido!"
+                    ];
+                }
+            }
+            else{
+                $this->mensagem = [
+                    "status" => false,
+                    "msg" => "Data inválida!",
+                ];
+            }
+        }  
+        else{
+            $this->mensagem = [
+                "status" => false,
+                "msg" => "Campos vazios, preencha-os!"
+            ];
+        }
+        return $this->mensagem;
+    }
+    
+    public function validaCampos($campo){
         $this->modelo = $campo["modelo"];
         $this->marca = $campo["marca"];
         $this->ano = $campo["ano"];
         $this->dataLocacao = $campo["dataLocacao"];
         $this->dataDevolucao = $campo["dataDevolucao"];
-        $this->imagem = $arquivo["imagem"];
+        
 
-        if(empty($this->modelo) || empty($this->marca) || empty($this->ano) || empty($this->dataLocacao) || empty($this->dataDevolucao) || empty($this->imagem["name"])){
-            // echo "arquivo vazio";
+        if(empty($this->modelo) || empty($this->marca) || empty($this->ano) || empty($this->dataLocacao) || empty($this->dataDevolucao)){
+            return false;
         }
         else{
-            // echo "dados cadastrados";
-            echo "<pre>";
-            $nomeArquivo = $this->imagem;
-            print_r($this->imagem["name"]);
-            echo "</pre>";
-
-            echo "<pre>";
-            $infoArquivo = pathinfo($nomeArquivo["name"]);
-            print_r($infoArquivo); 
-            echo "</pre>";
-
-            $extensaoArquivo = $infoArquivo["extension"];
-
-            if($extensaoArquivo == "jpg" || $extensaoArquivo == "png" || $extensaoArquivo == "jpeg"){
-                echo "formato de arquivo válido";
-
-                $pasta = "../imagem/";
-
-                
-
-                if(!file_exists($pasta)){
-                    mkdir($pasta, 0777,true);
-                }
-
-                $caminhoFinal = $pasta.$this->imagem["name"];
-
-                move_uploaded_file($this->imagem["tmp_name"], $caminhoFinal);
-            }
-            
+            return true;
         }
     }
 
     public function validaData($campo){
+        date_default_timezone_set("America/Sao_Paulo");
         $this->dataLocacao = $campo["dataLocacao"];
         $this->dataDevolucao = $campo["dataDevolucao"];
 
         $dataLocacao = new DateTime($this->dataLocacao);
         $dataDevolucao = new DateTime($this->dataDevolucao);
 
+        
+
         $dataAtual = new DateTime("now");
         
-        echo "<pre>";
-        print_r($dataLocacao);
-        echo "</pre>";
-
-        echo "<pre>";
-        print_r($dataAtual);
-        echo "</pre>";
-
-        echo "<pre>";
-        print_r($dataDevolucao);
-        echo "</pre>";
+        
 
 
-        if($dataLocacao < $dataAtual || $dataDevolucao < $dataLocacao){
-            echo "Datas inválidas";
+        if($dataLocacao < $dataAtual || $dataDevolucao <= $dataLocacao){
+            return false;
         } 
-        else{ echo "data válida";}
+        else{
+            return true;
+        }
+    }
+
+
+    public function recebeArquivo($arquivo){
+        $this->imagem = $arquivo;
+
+        if(empty($this->imagem["name"])){
+            return false;
+        } 
+        else{
+            $infoArquivo = pathinfo($this->imagem["name"]);
+            
+            $extensaoArquivo = $infoArquivo["extension"];
+
+            if($extensaoArquivo == "jpg" || $extensaoArquivo == "png" || $extensaoArquivo == "jpeg"){
+                
+
+            $pasta = "../imagem/";
+
+            
+
+            if(!file_exists($pasta)){
+                mkdir($pasta, 0777,true);
+            }
+
+            $data = new DateTime();
+
+            $nomeFinal = $data->getTimestamp().".".$extensaoArquivo;
+
+            $caminhoFinal = $pasta.$nomeFinal;
+
+            move_uploaded_file($this->imagem["tmp_name"], $caminhoFinal);
+
+            
+
+            $this->imagem = $caminhoFinal;
+            return true;
+        }
+        else{
+            return false;
+        }
+        }
         
     }
+
+    public function __get($atributo)
+    {
+        return $this->$atributo;
+    }
 }
-$meuVeiculo = new Veiculo();
-$meuVeiculo->validaData($_POST);
+

@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +13,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Locação de Veículos</title>
 </head>
-<body>
+<body class="body">
   
 <header class="stick">
   <nav class="navbar navbar-expand-lg bg-dark">
@@ -27,7 +33,7 @@
             <a class="nav-link text-white" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item me-3 fs-5">
-            <a class="nav-link text-white" href="#">Alugados</a>
+            <a class="nav-link text-white" href="VisualizarCadastroView.php">Alugados</a>
           </li>
           <li class="nav-item me-3 fs-5">
             <a class="nav-link text-white" href="#">Logout</a>
@@ -39,6 +45,38 @@
     </div>
 
   </nav>
+
+  <?php
+    if(isset($_SESSION["mensagem"])){
+      if($_SESSION["mensagem"]["status"]){
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        <h4 class='text-center fs-1 fw-bold'>{$_SESSION["mensagem"]["msg"]}</h4>
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+      }
+      else{
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+        <h4 class='text-center fs-1 fw-bold'>{$_SESSION["mensagem"]["msg"]}</h4>
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>";
+      }
+  
+    }
+    unset($_SESSION["mensagem"]);
+
+
+    
+  ?>
+
+
+  <h1 class="fw-bold text-center mt-4">
+    Alugue um carro
+  </h1>
+
+  <hr>
+
+  
+
    
 
 </header>    
@@ -49,7 +87,7 @@
   
       <div class="col-md-7 mx-auto mt-4 glass">
 
-        <form action="../classes/Veiculo.php" method="POST" enctype="multipart/form-data">
+        <form action="../controller/VeiculoController.php" method="POST" enctype="multipart/form-data">
           <div class=" p-4 mx-auto">
             <div class="mb-3">
                 <label for="modelo" class="form-label fw-bold fs-5">Modelo <span class="text-danger">*</span></label>

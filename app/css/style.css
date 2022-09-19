@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-body{
+.body{
   background: url('../assets/foto_carro.jpg');
   background-repeat: no-repeat;
   background-size: cover;
