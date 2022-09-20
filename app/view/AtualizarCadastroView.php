@@ -1,8 +1,7 @@
 <?php
-  session_start();
-  
+    session_start();
+    require_once("../modal/VeiculoDAO.php");
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,48 +69,64 @@
 
 
   <h1 class="fw-bold text-center mt-4">
-    Alugue um carro
+    Atualize os Dados do Veículo
   </h1>
 
-  <hr>
+  
 
   
 
    
 
-</header>    
+</header>  
 
 
-<main class="">
+
+<main>
  
   
       <div class="col-md-7 mx-auto mt-4 glass">
 
+      <?php
+
+        if(!isset($_SESSION["id"])){
+        $_SESSION["id"] = $_POST["id_veiculo"];
+        // echo "o id escolhido é {$_SESSION["id"]}";
+        }
+
+        $meuVeiculoDAO = new VeiculoDAO();
+        $resultado = $meuVeiculoDAO->consultarUnico($_SESSION["id"]);
+
+        foreach($resultado as $elemento):
+      
+
+
+        ?>
         <form action="../controller/VeiculoController.php" method="POST" enctype="multipart/form-data">
           <div class=" p-4 mx-auto">
             <div class="mb-3">
                 <label for="modelo" class="form-label fw-bold fs-5">Modelo <span class="text-danger">*</span></label>
-                <input type="text" name="modelo" id="modelo" class="form-control" placeholder="Digite o Modelo do Carro" >
+                <input type="text" name="modelo" id="modelo" class="form-control" placeholder="Digite o Modelo do Carro" value="<?=$elemento["modelo"]?>">
             </div>
 
             <div class="mb-3">
                 <label for="marca" class="form-label fw-bold fs-5">Marca <span class="text-danger">*</span></label>
-                <input type="text" name="marca" id="marca" class="form-control" placeholder="Digite a Marca do Carro" >
+                <input type="text" name="marca" id="marca" class="form-control" placeholder="Digite a Marca do Carro" value="<?=$elemento["marca"]?>">
             </div>
 
             <div class="mb-3">
                 <label for="ano" class="form-label fw-bold fs-5">Ano de Fabricação <span class="text-danger">*</span></label>
-                <input type="number" name="ano" id="ano" class="form-control" placeholder="Digite o Ano de Fabricação" min="1990" max="2022">
+                <input type="number" name="ano" id="ano" class="form-control" placeholder="Digite o Ano de Fabricação" min="1990" max="2022" value="<?=$elemento["ano_fabricacao"]?>">
             </div>
 
             <div class="mb-3">
                 <label for="dataLocacao" class="form-label fw-bold fs-5">Data de Locação <span class="text-danger">*</span></label>
-                <input type="date" name="dataLocacao" id="dataLocacao" class="form-control" placeholder="Digite a Data de Locação" >
+                <input type="date" name="dataLocacao" id="dataLocacao" class="form-control" placeholder="Digite a Data de Locação" value="<?=$elemento["locacao_inicio"]?>">
             </div>
 
             <div class="mb-3">
                 <label for="dataDevolucao" class="form-label fw-bold fs-5">Data de Devolução <span class="text-danger">*</span></label>
-                <input type="date" name="dataDevolucao" id="dataDevolucao" class="form-control" placeholder="Digite a Data de Devolução" >
+                <input type="date" name="dataDevolucao" id="dataDevolucao" class="form-control" placeholder="Digite a Data de Devolução" value="<?=$elemento["locacao_fim"]?>">
             </div>
 
             <div class="mb-3">
@@ -120,23 +135,27 @@
             </div>
           </div>
 
-            <input type="hidden" name="cadastrar">
+          <input type="hidden" name="atualizar" value="<?=$elemento["id_veiculo"]?>">
 
           <div class="row mb-3">
-            <button class="btn btn-secondary col-8 mx-auto btn-lg" type="submit">Cadastrar</button>
+            <button class="btn btn-secondary col-8 mx-auto btn-lg" type="submit">Atualizar</button>
           </div>
         </form>
-        
+
+      <?php
+        endforeach;
+        unset($_SESSION["id"]);
+      ?> 
+      
+
       </div>
        
    
 
 
 </main>
-  
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+<?php
+require_once("../includes/Rodape.php");
+?>

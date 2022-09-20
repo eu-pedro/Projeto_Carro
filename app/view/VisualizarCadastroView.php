@@ -83,8 +83,15 @@ require_once("../modal/VeiculoDAO.php");
 
           <td>
             <div class="d-flex justify-content-around">
-              <button type="submit" class="btn btn-info me-4 mt-4">Editar</button>
-              <button class="btn btn-danger mt-4">Excluir</button>  
+              <form action="AtualizarCadastroView.php" method="post">
+                <button type="submit" class="btn btn-info me-4 mt-4">Editar</button>
+
+                <input type="hidden" name="id_veiculo" value="<?=$elementos["id_veiculo"]?>">
+
+                <button type="button" class="btn btn-danger mt-4">Excluir</button>  
+                
+               
+              </form>
             </div>
           </td>
         </tr>
