@@ -1,6 +1,6 @@
 <?php
 require_once("../includes/Cabecalho.php");
-require_once("../modal/VeiculoDAO.php");
+require_once("../model/VeiculoDAO.php");
 
 ?>
 <main class="row mt-5 mb-4">
@@ -88,7 +88,7 @@ require_once("../modal/VeiculoDAO.php");
 
                 <input type="hidden" name="id_veiculo" value="<?=$elementos["id_veiculo"]?>">
 
-                <button type="button" class="btn btn-danger mt-4">Excluir</button>  
+                <button type="button" id="<?=$elementos["id_veiculo"]?>" class="btn btn-danger mt-4 excluir" data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir</button>  
                 
                
               </form>
@@ -110,6 +110,38 @@ require_once("../modal/VeiculoDAO.php");
 
 
 </section>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="../controller/VeiculoController.php" method="post">
+        <div class="modal-body">
+          <p class="text-center">Você tem certeza que deseja excluir esta locação?</p>
+        </div>
+      
+      
+
+        <div class="modal-footer">
+          
+          <input type="hidden" name="excluir" id="excluirCadastro">
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Confirmar</button>
+
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
 
 
 

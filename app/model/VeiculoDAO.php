@@ -109,4 +109,23 @@ class VeiculoDAO{
       return false;
     }
   }
+
+
+  public function deletar($id){
+    $sql = "DELETE FROM {$this->tabela} WHERE id_veiculo = :id";
+
+    $preparacao = Conexao::getConexao()->prepare($sql);
+
+    $preparacao->bindValue(":id", $id);
+
+    $preparacao -> execute();
+
+    if($preparacao -> rowCount() > 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
 }

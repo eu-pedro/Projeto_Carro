@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Gerenciamento de Veículos</title>
 </head>
 <body>
   
@@ -46,28 +46,7 @@
 
   </nav>
 
-  <?php
-    if(isset($_SESSION["mensagem"])){
-      if($_SESSION["mensagem"]["status"]){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-        <h4 class='text-center fs-1 fw-bold'>{$_SESSION["mensagem"]["msg"]}</h4>
-        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-        </div>";
-      }
-      else{
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-        <h4 class='text-center fs-1 fw-bold'>{$_SESSION["mensagem"]["msg"]}</h4>
-        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-        </div>";
-      }
-  
-    }
-    unset($_SESSION["mensagem"]);
-
-
-    
-  ?>
-
+ 
 
   
 
