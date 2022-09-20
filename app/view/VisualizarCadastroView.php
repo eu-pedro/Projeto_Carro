@@ -84,7 +84,9 @@ require_once("../model/VeiculoDAO.php");
           <td>
             <div class="d-flex justify-content-around">
               <form action="AtualizarCadastroView.php" method="post">
-                <button type="submit" class="btn btn-info me-4 mt-4">Editar</button>
+             
+              
+              <button type="submit" class="btn btn-info me-4 mt-4">Editar</button>
 
                 <input type="hidden" name="id_veiculo" value="<?=$elementos["id_veiculo"]?>">
 
@@ -100,6 +102,7 @@ require_once("../model/VeiculoDAO.php");
         <?php
           endforeach;
           endif;
+          unset($_SESSION["id"]);
         ?>
       </tbody>
       

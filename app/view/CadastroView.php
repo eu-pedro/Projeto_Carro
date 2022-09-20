@@ -30,14 +30,12 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
           <li class="nav-item me-3 fs-5">
-            <a class="nav-link text-white" aria-current="page" href="#">Home</a>
+            <a class="nav-link text-white" aria-current="page" href="CadastroView.php">Home</a>
           </li>
           <li class="nav-item me-3 fs-5">
             <a class="nav-link text-white" href="VisualizarCadastroView.php">Alugados</a>
           </li>
-          <li class="nav-item me-3 fs-5">
-            <a class="nav-link text-white" href="#">Logout</a>
-          </li>
+          
         </ul>
         
       </div>
@@ -53,6 +51,7 @@
         <h4 class='text-center fs-1 fw-bold'>{$_SESSION["mensagem"]["msg"]}</h4>
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>";
+        
       }
       else{
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
@@ -62,30 +61,20 @@
       }
       unset($_SESSION["mensagem"]);
     }
-    
-
-
-    
+     
   ?>
-
 
   <h1 class="fw-bold text-center mt-4">
     Alugue um carro
   </h1>
 
-  <hr>
-
-  
-
-   
-
 </header>    
 
 
-<main class="">
+<main>
  
   
-      <div class="col-md-7 mx-auto mt-4 glass">
+      <div class="col-md-7 mx-auto mt-4 glass mb-3">
 
         <form action="../controller/VeiculoController.php" method="POST" enctype="multipart/form-data">
           <div class=" p-4 mx-auto">
@@ -128,13 +117,8 @@
         </form>
         
       </div>
-       
-   
-
 
 </main>
-  
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 

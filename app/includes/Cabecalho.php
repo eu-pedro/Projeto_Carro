@@ -11,6 +11,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerenciamento de Veículos</title>
@@ -30,13 +31,10 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
           <li class="nav-item me-3 fs-5">
-            <a class="nav-link text-white" aria-current="page" href="#">Home</a>
+            <a class="nav-link text-white" aria-current="page" href="../view/CadastroView.php">Home</a>
           </li>
           <li class="nav-item me-3 fs-5">
             <a class="nav-link text-white" href="#">Alugados</a>
-          </li>
-          <li class="nav-item me-3 fs-5">
-            <a class="nav-link text-white" href="#">Logout</a>
           </li>
         </ul>
         

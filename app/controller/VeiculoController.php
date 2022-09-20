@@ -7,23 +7,25 @@ $meuVeiculo = new Veiculo();
 $meuVeiculoDAO = new VeiculoDAO();
 
 
-$_SESSION["mensagem"] = $meuVeiculo->inicio($_POST,$_FILES["imagem"]);
+
 if(isset($_POST["cadastrar"])){
+  $_SESSION["mensagem"] = $meuVeiculo->inicio($_POST,$_FILES["imagem"]);
   if($_SESSION["mensagem"]["status"]){
     $meuVeiculoDAO->inserir($meuVeiculo);
-    header("Location: ../view/CadastroView.php");
   }
-  
+  header("Location: ../view/CadastroView.php");
+    die();
 }
 
 if(isset($_POST["atualizar"])){
-  $_SESSION["atualizar"] = $meuVeiculo->inicio($_POST,$_FILES["imagem"]);
-  if($_SESSION["atualizar"]["status"]){
+  $_SESSION["mensagem"] = $meuVeiculo->inicio($_POST,$_FILES["imagem"]);
+  if($_SESSION["mensagem"]["status"]){
     $meuVeiculoDAO->atualizar($meuVeiculo, $_POST["atualizar"]);
     //print_r($meuVeiculo);
-    header("Location: ../view/AtualizarCadastroView.php");
+    
   }
-   
+  header("Location: ../view/AtualizarCadastroView.php");
+  die();
 }
 
 if(isset($_POST["excluir"])){

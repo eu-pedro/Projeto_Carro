@@ -28,13 +28,10 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
           <li class="nav-item me-3 fs-5">
-            <a class="nav-link text-white" aria-current="page" href="#">Home</a>
+            <a class="nav-link text-white" aria-current="page" href="CadastroView.php">Home</a>
           </li>
           <li class="nav-item me-3 fs-5">
             <a class="nav-link text-white" href="VisualizarCadastroView.php">Alugados</a>
-          </li>
-          <li class="nav-item me-3 fs-5">
-            <a class="nav-link text-white" href="#">Logout</a>
           </li>
         </ul>
         
@@ -51,16 +48,18 @@
         <h4 class='text-center fs-1 fw-bold'>{$_SESSION["mensagem"]["msg"]}</h4>
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>";
+        
       }
       else{
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
         <h4 class='text-center fs-1 fw-bold'>{$_SESSION["mensagem"]["msg"]}</h4>
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>";
+        
       }
-  
+      unset($_SESSION["mensagem"]);
     }
-    unset($_SESSION["mensagem"]);
+    
 
 
     
@@ -142,8 +141,9 @@
         </form>
 
       <?php
+        
         endforeach;
-        unset($_SESSION["id"]);
+        
       ?> 
       
 
